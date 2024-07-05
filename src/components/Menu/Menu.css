@@ -17,20 +17,25 @@
   .menu__links {
     display: flex;
     align-items: center;
+    margin-right: auto; /* Сдвинет ссылки к логотипу */
     transition: transform 0.3s ease-out, opacity 0.3s ease-out;
   }
   
   .menu__link {
     display: flex;
     align-items: center;
-    margin-right: 20px;
+    margin-right: 24px;
     text-decoration: none;
-    color: #333;
-    font-weight: bold;
+    color: rgba(147, 149, 184, 1);
+    /* font-weight: bold; */
+  }
+
+  .menu__link:first-of-type{
+    color: rgba(6, 8, 44, 1);
   }
   
   .menu__link img {
-    margin-right: 5px;
+    margin-right: 10px;
   }
   
   .menu__burger {
@@ -47,6 +52,12 @@
     display: none;
   }
   
+  .menu__extras-container {
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* Сдвинет выбор языка и иконку профиля к правому краю */
+  }
+  
   .menu__extras {
     display: flex;
     align-items: center;
@@ -55,10 +66,9 @@
   .menu__extra {
     display: flex;
     align-items: center;
-    margin-right: 20px;
+    margin-left: 24px;
     text-decoration: none;
     color: #333;
-    font-weight: bold;
   }
   
   .menu__extra img {

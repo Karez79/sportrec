@@ -48,7 +48,9 @@ const Menu: React.FC = () => {
         <a className="menu__link" href="#"><img src={trophyIcon} alt="Competitions" /> Соревнования</a>
         <a className="menu__link" href="#"><img src={buildingIcon} alt="Organizations" /> Организации</a>
         <a className="menu__link" href="#"><img src={signalIcon} alt="Live" /> Live</a>
-        <div className="menu__link menu__language" onClick={toggleLanguageMenu}>
+      </div>
+      <div className="menu__extras">
+        <div className="menu__extra menu__language" onClick={toggleLanguageMenu}>
           <img src={flagRuIcon} alt="Flag RU" />
           <span>RU</span>
           <img src={arrowDownIcon} alt="Arrow Down" />
@@ -60,7 +62,7 @@ const Menu: React.FC = () => {
             </div>
           )}
         </div>
-        <a className="menu__link" href="#"><img src={avatarIcon} alt="Avatar" /></a>
+        <a className="menu__extra" href="#"><img src={avatarIcon} alt="Avatar" /></a>
       </div>
       <div className="menu__burger" onClick={toggleMobileMenu}>
         <img src={burgerIcon} alt="Menu" />
