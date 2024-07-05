@@ -1,0 +1,153 @@
+.menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #fff;
+  }
+  
+  .menu__logo {
+    margin-right: 38px;
+  }
+  
+  .menu__logo img {
+    height: 40px;
+  }
+  
+  .menu__links {
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+  }
+  
+  .menu__link {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  .menu__link img {
+    margin-right: 5px;
+  }
+  
+  .menu__burger {
+    display: none;
+    cursor: pointer;
+  }
+  
+  .menu__links--open {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  
+  .menu__close-button {
+    display: none;
+  }
+  
+  .menu__extras {
+    display: flex;
+    align-items: center;
+  }
+  
+  .menu__extra {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  .menu__extra img {
+    margin-right: 5px;
+  }
+  
+  .menu__language {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .menu__language img:last-child {
+    margin-left: 5px;
+  }
+  
+  .menu__language-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border: 1px solid #eaeaea;
+    z-index: 10;
+  }
+  
+  .menu__language-option {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .menu__language-option img {
+    margin-right: 10px;
+  }
+  
+  .menu__language-option:hover {
+    background-color: #f0f0f0;
+  }
+  
+  @media (max-width: 768px) {
+    .menu__links {
+      display: none;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 80%; /* Ширина мобильного меню */
+      height: 100%; /* Высота мобильного меню */
+      background-color: #fff;
+      transform: translateX(100%);
+      padding: 20px;
+      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+      opacity: 0;
+    }
+  
+    .menu__links--open {
+      display: flex;
+      transform: translateX(0);
+      opacity: 1;
+    }
+  
+    .menu__link {
+      margin-bottom: 20px; /* Расстояние между ссылками */
+    }
+  
+    .menu__close-button {
+      display: block;
+      margin-bottom: 20px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      align-self: flex-end; /* Выравнивание кнопки закрытия по правому краю */
+    }
+  
+    .menu__close-button img {
+      height: 20px;
+    }
+  
+    .menu__burger {
+      display: block;
+    }
+  
+    .menu__extras {
+      display: none;
+    }
+  }
+  
