@@ -1,0 +1,43 @@
+/* src/components/SmallColumn/SmallColumn.css */
+
+.small-column {
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.small-column h3 {
+  font-size: 18px;
+  font-weight: bold;
+  color: rgba(6, 8, 44, 1);
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.filter-option {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.filter-option img {
+  margin-right: 10px;
+}
+
+.filter-option span {
+  font-size: 16px;
+  color: rgba(147, 149, 184, 1);
+}
+
+/* @media (max-width: 768px) {
+  .small-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .filter-option {
+    justify-content: center;
+  }
+} */

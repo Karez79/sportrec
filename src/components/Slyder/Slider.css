@@ -6,7 +6,6 @@
     margin: 0 auto;
     border-radius: 10px; /* Добавляем скругление углов */
     margin-top: 24px;
-    
   }
   
   .slider-wrapper {
@@ -21,7 +20,7 @@
   
   .slider-image {
     width: 100%;
-    height: 346px;
+    height: calc(100% - 30px); /* Оставляем место для кружков */
     object-fit: cover;
     border-radius: 10px; /* Скругление для изображения */
   }
@@ -29,10 +28,11 @@
   .slider-dots-container {
     display: flex;
     justify-content: center;
-    margin-top: 10px; /* Отступ сверху для расположения под слайдером */
-    position: fixed;
-    left:50%;
-    z-index: 10
+    margin-top: 10px;
+    position: absolute;
+    /* bottom: 10px; */
+    width: 100%;
+    margin: -10px;
   }
   
   .slider-dots {
@@ -52,9 +52,9 @@
     background-color: #000; /* Цвет активного кружка */
   }
   
-
   @media (max-width: 768px) {
     .slider-container {
       display: none; /* Скрываем слайдер на экранах с шириной менее 768px */
     }
   }
+  

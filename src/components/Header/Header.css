@@ -16,3 +16,25 @@
 
 
 }
+
+
+/* @media (max-width: 768px) {
+  /* .header {
+    padding: 10px;
+  } */
+
+  /* .menu {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .menu__links {
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .menu__extras-container {
+    justify-content: center;
+    margin-top: 10px;
+  } */

@@ -1,0 +1,38 @@
+.columns-container {
+    display: flex;
+    justify-content: center;
+    gap: 24px; /* Расстояние между колонками */
+    margin-top: 8px; /* Отступ сверху */
+  }
+  
+  .column {
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 10px; /* Скругление углов */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Легкая тень для объема */
+  }
+  
+  .column-large {
+    width: 765px;
+    height: 1229px;
+  }
+  
+  .column-small {
+    width: 371px;
+    height: 294px;
+  }
+  
+  @media (max-width: 768px) {
+    .columns-container {
+      flex-direction: column;
+    }
+  
+    .column-small {
+      order: 1;
+      width: 100%;
+    }
+  
+    .column-large {
+      order: 2;
+      width: 100%;
+    }
+  }
