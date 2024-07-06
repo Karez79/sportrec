@@ -93,3 +93,11 @@
     background-color: #005bb5;
   }
   
+
+  @media (max-width: 768px) {
+    .large-column {
+      grid-template-columns: 1fr;
+      width: 100%; /* Уменьшаем колонку на мобильных устройствах */
+      padding: 10px;
+    }
+  }
