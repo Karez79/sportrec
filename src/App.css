@@ -7,21 +7,17 @@ body, html, #root, .App {
 }
 
 body {
-  background-color: rgba(255, 255, 255, 1)
+  background-color: rgba(238, 240, 247, 1);
 }
 
 #root {
-  width: calc(100% - 280px); /* Учитываем отступы 140px слева и справа */
+  width: 100%;
   margin: 0 auto;
-  max-width: 1440px; /* Ограничение ширины для основного контента */
 }
 
 .App {
   text-align: center;
-}
-
-.content {
-  padding: 20px;
-  background-color: rgba(238, 240, 247, 1);
-  box-sizing: border-box;
+  /* max-width: 1440px; /* Ограничение ширины для основного контента */
+  /* margin: 0 auto; */
+  /* padding: 0 140px; Отступы по 140px слева и справа */
 }

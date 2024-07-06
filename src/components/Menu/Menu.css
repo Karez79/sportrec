@@ -134,19 +134,20 @@
   
   @media (max-width: 768px) {
     .menu__links {
-      display: none;
-      flex-direction: column;
-      position: fixed;
-      top: 0;
-      right: 0;
-      width: 80%;
-      height: 100%;
-      background-color: #fff;
-      transform: translateX(100%);
-      padding: 20px;
-      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
-      transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-      opacity: 0;
+        display: none;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 50%;
+        height: 25%;
+        background-color: #fff;
+        transform: translateX(100%);
+        /* padding: 20px; */
+        /* box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5); */
+        transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+        opacity: 0;
+    
     }
   
     .menu__links--open {
@@ -156,7 +157,7 @@
     }
   
     .menu__link {
-      margin-bottom: 20px;
+      margin-bottom: 10px; /* Уменьшение расстояния между ссылками в мобильном меню */
     }
   
     .menu__close-button {

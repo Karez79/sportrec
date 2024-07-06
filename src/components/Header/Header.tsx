@@ -5,7 +5,9 @@ import './Header.css';
 const Header: React.FC = () => {
   return (
     <header className="header">
-      <Menu />
+      <div className="header__container">
+        <Menu />
+      </div>
     </header>
   );
 };
