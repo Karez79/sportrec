@@ -15,9 +15,16 @@ import flagEnIcon from '../../assets/flag-en.svg';
 import flagFrIcon from '../../assets/flag-fr.svg';
 import arrowDownIcon from '../../assets/arrow-down.svg';
 
+const languages = [
+  { code: 'RU', flag: flagRuIcon, label: 'RU' },
+  { code: 'EN', flagEnIcon, label: 'EN' },
+  { code: 'FR', flagFrIcon, label: 'FR' },
+];
+
 const Menu: React.FC = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isLanguageMenuOpen, setLanguageMenuOpen] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState(languages[0]);
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
@@ -29,6 +36,11 @@ const Menu: React.FC = () => {
 
   const toggleLanguageMenu = () => {
     setLanguageMenuOpen(!isLanguageMenuOpen);
+  };
+
+  const selectLanguage = (language: typeof languages[0]) => {
+    setSelectedLanguage(language);
+    setLanguageMenuOpen(false);
   };
 
   return (
@@ -49,20 +61,28 @@ const Menu: React.FC = () => {
         <a className="menu__link" href="#"><img src={buildingIcon} alt="Organizations" /> Организации</a>
         <a className="menu__link" href="#"><img src={signalIcon} alt="Live" /> Live</a>
       </div>
-      <div className="menu__extras">
-        <div className="menu__extra menu__language" onClick={toggleLanguageMenu}>
-          <img src={flagRuIcon} alt="Flag RU" />
-          <span>RU</span>
-          <img src={arrowDownIcon} alt="Arrow Down" />
-          {isLanguageMenuOpen && (
+      <div className="menu__extras-container">
+        <div className={`menu__extras ${isLanguageMenuOpen ? 'menu__language--open' : ''}`}>
+          <div className="menu__extra menu__language" onClick={toggleLanguageMenu}>
+            <img src={selectedLanguage.flag} alt={`Flag ${selectedLanguage.label}`} />
+            <span>{selectedLanguage.label}</span>
+            <img src={arrowDownIcon} alt="Arrow Down" />
             <div className="menu__language-dropdown">
-              <a className="menu__language-option" href="#"><img src={flagRuIcon} alt="Flag RU" /> RU</a>
-              <a className="menu__language-option" href="#"><img src={flagEnIcon} alt="Flag EN" /> EN</a>
-              <a className="menu__language-option" href="#"><img src={flagFrIcon} alt="Flag FR" /> FR</a>
+              {languages.map((language) => (
+                <a
+                  key={language.code}
+                  className="menu__language-option"
+                  href="#"
+                  onClick={() => selectLanguage(language)}
+                >
+                  <img src={language.flag} alt={`Flag ${language.label}`} />
+                  {language.label}
+                </a>
+              ))}
             </div>
-          )}
+          </div>
+          <a className="menu__extra" href="#"><img src={avatarIcon} alt="Avatar" /></a>
         </div>
-        <a className="menu__extra" href="#"><img src={avatarIcon} alt="Avatar" /></a>
       </div>
       <div className="menu__burger" onClick={toggleMobileMenu}>
         <img src={burgerIcon} alt="Menu" />

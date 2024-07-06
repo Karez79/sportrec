@@ -1,8 +1,27 @@
-#root {
-  max-width: 1440px;
-  margin: 0 auto;
+/* Сброс базовых стилей */
+body, html, #root, .App {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
 }
 
 body {
+  background-color: rgba(255, 255, 255, 1)
+}
+
+#root {
+  width: calc(100% - 280px); /* Учитываем отступы 140px слева и справа */
   margin: 0 auto;
+  max-width: 1440px; /* Ограничение ширины для основного контента */
+}
+
+.App {
+  text-align: center;
+}
+
+.content {
+  padding: 20px;
+  background-color: rgba(238, 240, 247, 1);
+  box-sizing: border-box;
 }

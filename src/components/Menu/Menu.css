@@ -2,8 +2,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 20px;
+    padding: 10px 0;
     background-color: #fff;
+    width: 1160px;
   }
   
   .menu__logo {
@@ -17,20 +18,19 @@
   .menu__links {
     display: flex;
     align-items: center;
-    margin-right: auto; /* Сдвинет ссылки к логотипу */
+    width: 743px; /* Ширина для ссылок */
+    justify-content: space-between;
     transition: transform 0.3s ease-out, opacity 0.3s ease-out;
   }
   
   .menu__link {
     display: flex;
     align-items: center;
-    margin-right: 24px;
     text-decoration: none;
     color: rgba(147, 149, 184, 1);
-    /* font-weight: bold; */
   }
-
-  .menu__link:first-of-type{
+  
+  .menu__link:first-of-type {
     color: rgba(6, 8, 44, 1);
   }
   
@@ -55,7 +55,7 @@
   .menu__extras-container {
     display: flex;
     align-items: center;
-    margin-left: auto; /* Сдвинет выбор языка и иконку профиля к правому краю */
+    margin-left: auto;
   }
   
   .menu__extras {
@@ -80,10 +80,21 @@
     align-items: center;
     cursor: pointer;
     position: relative;
+    margin-left: 40px; /* Увеличение отступа между Live и языком */
   }
   
-  .menu__language img:last-child {
-    margin-left: 5px;
+  .menu__language img:first-of-type {
+    width: 20px;
+    height: auto;
+    margin-right: 5px; /* Добавлен отступ справа от флага */
+  }
+  
+  .menu__language img:last-of-type {
+    margin-left: 10px; /* Увеличен отступ слева от стрелки */
+  }
+  
+  .menu__language span {
+    flex-shrink: 0; /* Предотвращение изменения размера текста */
   }
   
   .menu__language-dropdown {
@@ -94,6 +105,12 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     border: 1px solid #eaeaea;
     z-index: 10;
+    width: max-content;
+    display: none; /* Скрытие списка по умолчанию */
+  }
+  
+  .menu__language--open .menu__language-dropdown {
+    display: block; /* Отображение списка при открытии */
   }
   
   .menu__language-option {
@@ -102,10 +119,13 @@
     padding: 10px 20px;
     text-decoration: none;
     color: #333;
+    white-space: nowrap;
   }
   
   .menu__language-option img {
     margin-right: 10px;
+    width: 20px;
+    height: auto;
   }
   
   .menu__language-option:hover {
@@ -119,8 +139,8 @@
       position: fixed;
       top: 0;
       right: 0;
-      width: 80%; /* Ширина мобильного меню */
-      height: 100%; /* Высота мобильного меню */
+      width: 80%;
+      height: 100%;
       background-color: #fff;
       transform: translateX(100%);
       padding: 20px;
@@ -136,7 +156,7 @@
     }
   
     .menu__link {
-      margin-bottom: 20px; /* Расстояние между ссылками */
+      margin-bottom: 20px;
     }
   
     .menu__close-button {
@@ -145,7 +165,7 @@
       background: none;
       border: none;
       cursor: pointer;
-      align-self: flex-end; /* Выравнивание кнопки закрытия по правому краю */
+      align-self: flex-end;
     }
   
     .menu__close-button img {
