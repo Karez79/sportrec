@@ -28,3 +28,5 @@ declare module "*.svg" {
   const value: string;
   export default value;
 }
+
+declare module '@supabase/supabase-js';

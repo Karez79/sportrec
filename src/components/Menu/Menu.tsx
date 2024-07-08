@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './Menu.css';
 import homeIcon from '../../assets/home.svg';
 import shoppingBagIcon from '../../assets/shopping-bag-02.svg';
@@ -54,12 +55,24 @@ const Menu: React.FC = () => {
         <button className="menu__close-button" onClick={closeMobileMenu}>
           <img src={closeIcon} alt="Close Menu" />
         </button>
-        <a className="menu__link" href="#"><img src={homeIcon} alt="Home" /> Лента</a>
-        <a className="menu__link" href="#"><img src={shoppingBagIcon} alt="Marketplace" /> Маркетплейс</a>
-        <a className="menu__link" href="#"><img src={usersIcon} alt="Ratings" /> Рейтинги</a>
-        <a className="menu__link" href="#"><img src={trophyIcon} alt="Competitions" /> Соревнования</a>
-        <a className="menu__link" href="#"><img src={buildingIcon} alt="Organizations" /> Организации</a>
-        <a className="menu__link" href="#"><img src={signalIcon} alt="Live" /> Live</a>
+        <Link className="menu__link" to="/" onClick={closeMobileMenu}>
+          <img src={homeIcon} alt="Home" /> Лента
+        </Link>
+        <Link className="menu__link" to="/marketplace" onClick={closeMobileMenu}>
+          <img src={shoppingBagIcon} alt="Marketplace" /> Маркетплейс
+        </Link>
+        <Link className="menu__link" to="/ratings" onClick={closeMobileMenu}>
+          <img src={usersIcon} alt="Ratings" /> Рейтинги
+        </Link>
+        <Link className="menu__link" to="/competitions" onClick={closeMobileMenu}>
+          <img src={trophyIcon} alt="Competitions" /> Соревнования
+        </Link>
+        <Link className="menu__link" to="/organizations" onClick={closeMobileMenu}>
+          <img src={buildingIcon} alt="Organizations" /> Организации
+        </Link>
+        <Link className="menu__link" to="/live" onClick={closeMobileMenu}>
+          <img src={signalIcon} alt="Live" /> Live
+        </Link>
       </div>
       <div className="menu__extras-container">
         <div className={`menu__extras ${isLanguageMenuOpen ? 'menu__language--open' : ''}`}>
