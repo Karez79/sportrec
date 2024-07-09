@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import AuthModal from '../Auth/AuthModal';
 import './Menu.css';
 import homeIcon from '../../assets/home.svg';
 import shoppingBagIcon from '../../assets/shopping-bag-02.svg';
@@ -26,6 +27,7 @@ const Menu: React.FC = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isLanguageMenuOpen, setLanguageMenuOpen] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(languages[0]);
+  const [isAuthModalOpen, setAuthModalOpen] = useState(false);
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
@@ -42,6 +44,14 @@ const Menu: React.FC = () => {
   const selectLanguage = (language: typeof languages[0]) => {
     setSelectedLanguage(language);
     setLanguageMenuOpen(false);
+  };
+
+  const openAuthModal = () => {
+    setAuthModalOpen(true);
+  };
+
+  const closeAuthModal = () => {
+    setAuthModalOpen(false);
   };
 
   return (
@@ -94,12 +104,15 @@ const Menu: React.FC = () => {
               ))}
             </div>
           </div>
-          <a className="menu__extra" href="#"><img src={avatarIcon} alt="Avatar" /></a>
+          <a className="menu__extra" href="#" onClick={openAuthModal}>
+            <img src={avatarIcon} alt="Avatar" />
+          </a>
         </div>
       </div>
       <div className="menu__burger" onClick={toggleMobileMenu}>
         <img src={burgerIcon} alt="Menu" />
       </div>
+      <AuthModal isOpen={isAuthModalOpen} onRequestClose={closeAuthModal} />
     </nav>
   );
 };
