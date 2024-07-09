@@ -47,7 +47,7 @@ const Menu: React.FC = () => {
   return (
     <nav className="menu">
       <div className="menu__logo">
-        <a href="https://karez79.github.io/sportrec/">
+        <a href="https://sportrec-lime.vercel.app/">
           <img src={logo} alt="SportRec Logo" />
         </a>
       </div>

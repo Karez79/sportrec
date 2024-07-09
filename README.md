@@ -8,7 +8,7 @@
 
 ## Ссылка на Github Pages:
 
-Посмотреть сайт: [https://karez79.github.io/sportrec/](https://karez79.github.io/sportrec/)
+Посмотреть сайт: [https://sportrec-lime.vercel.app/](https://sportrec-lime.vercel.app/)
 
 ## Инструкции по установке и запуску:
 
