@@ -1,4 +1,3 @@
-// src/components/Auth/AuthModal.tsx
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { supabase } from '../supabaseClient';
@@ -10,15 +9,33 @@ const AuthModal: React.FC<{ isOpen: boolean; onRequestClose: () => void }> = ({ 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
+  const [error, setError] = useState('');
 
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (isSignUp) {
-      await supabase.auth.signUp({ email, password });
-    } else {
-      await supabase.auth.signInWithPassword({ email, password });
+    try {
+      let response;
+      if (isSignUp) {
+        console.log('Trying to sign up with:', { email, password });
+        response = await supabase.auth.signUp({ email, password });
+      } else {
+        console.log('Trying to sign in with:', { email, password });
+        response = await supabase.auth.signInWithPassword({ email, password });
+      }
+      console.log('Response:', response);
+      if (response.error) {
+        setError(response.error.message);
+        console.error('Error during authentication:', response.error.message);
+      } else {
+        const user = response.data.user;
+        console.log('User authenticated:', user);
+        setError('');
+        onRequestClose();
+      }
+    } catch (error) {
+      console.error('Unexpected error:', error);
+      setError('Unexpected error occurred. Please try again.');
     }
-    onRequestClose();
   };
 
   return (
@@ -41,6 +58,7 @@ const AuthModal: React.FC<{ isOpen: boolean; onRequestClose: () => void }> = ({ 
         />
         <button type="submit">{isSignUp ? 'Sign Up' : 'Sign In'}</button>
       </form>
+      {error && <p className="error">{error}</p>}
       <button onClick={() => setIsSignUp(!isSignUp)}>
         {isSignUp ? 'Already have an account? Sign In' : "Don't have an account? Sign Up"}
       </button>

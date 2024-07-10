@@ -1,3 +1,4 @@
+// src/components/Auth/Auth.tsx
 import React, { useState } from 'react';
 import { supabase } from '../supabaseClient';
 import './Auth.css';
@@ -11,7 +12,7 @@ const Auth: React.FC = () => {
   const handleAuth = async () => {
     let response;
     if (isLogin) {
-      response = await supabase.auth.signIn({ email, password });
+      response = await supabase.auth.signInWithPassword({ email, password });
     } else {
       response = await supabase.auth.signUp({ email, password });
     }

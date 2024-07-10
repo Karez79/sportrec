@@ -1,12 +1,8 @@
 /* src/components/Auth/AuthModal.css */
-
 .auth-modal {
     position: absolute;
     top: 50%;
     left: 50%;
-    right: auto;
-    bottom: auto;
-    margin-right: -50%;
     transform: translate(-50%, -50%);
     background-color: white;
     padding: 2em;
@@ -37,5 +33,10 @@
   
   .auth-modal button:hover {
     background-color: #0056b3;
+  }
+  
+  .error {
+    color: red;
+    margin-top: 1em;
   }
   
