@@ -40,15 +40,7 @@ const UserDashboard: React.FC = () => {
         }
 
         console.log('User details from DB:', userDetails);
-
-        if (userDetails.organization_id) {
-          console.log(`Organization user with email: ${userDetails.email}`);
-          navigate(`/organizations/${userDetails.organization_id}`);
-        } else {
-          console.log(`Regular user with email: ${userDetails.email}`);
-          navigate(`/users/${userDetails.id}`);
-          setUser(userDetails);
-        }
+        setUser(userDetails);
       } else {
         console.error('User ID not found in localStorage.');
         setError('User ID not found in localStorage.');
@@ -58,6 +50,12 @@ const UserDashboard: React.FC = () => {
       console.error('Unexpected error:', error);
       setError('Unexpected error occurred. Please try again.');
     }
+  };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    localStorage.removeItem('user');
+    navigate('/');
   };
 
   useEffect(() => {
@@ -77,6 +75,7 @@ const UserDashboard: React.FC = () => {
       <h1>User Dashboard</h1>
       <p>Email: {user.email}</p>
       <p>Organization ID: {user.organization_id}</p>
+      <button onClick={handleLogout}>Logout</button>
     </div>
   );
 };

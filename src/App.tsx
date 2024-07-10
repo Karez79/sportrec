@@ -9,6 +9,7 @@ import OrganizationsPage from './pages/OrganizationsPage/OrganizationsPage';
 import OrganizationDetailPage from './pages/OrganizationDetailPage/OrganizationDetailPage';
 import LivePage from './pages/LivePage/LivePage';
 import UserDashboard from './pages/UserDashboard/UserDashboard';
+import AuthModal from './components/Auth/AuthModal';
 
 function App() {
   return (
@@ -23,9 +24,10 @@ function App() {
           <Route path="/organizations" element={<OrganizationsPage />} />
           <Route path="/organizations/:id" element={<OrganizationDetailPage />} />
           <Route path="/live" element={<LivePage />} />
-          <Route path="/users/:id" element={<UserDashboard />} />
           <Route path="/dashboard" element={<UserDashboard />} />
+          <Route path="/users/:id" element={<UserDashboard />} />
         </Routes>
+        <AuthModal isOpen={false} onRequestClose={() => {}} />
       </div>
     </Router>
   );
