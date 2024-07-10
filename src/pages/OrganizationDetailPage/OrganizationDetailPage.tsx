@@ -1,13 +1,10 @@
-// src/pages/OrganizationDetailPage/OrganizationDetailPage.tsx
-
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { supabase } from '../../components/supabaseClient';
-import './OrganizationDetailPage.css';
 
-// Создайте интерфейс для организации
+// Определяем типы данных
 interface Organization {
-  id: number;
+  id: string;
   name: string;
   description: string;
 }
@@ -15,29 +12,47 @@ interface Organization {
 const OrganizationDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [organization, setOrganization] = useState<Organization | null>(null);
+  const [error, setError] = useState<string>('');
 
   useEffect(() => {
     const fetchOrganization = async () => {
-      const { data, error } = await supabase.from('organizations').select('*').eq('id', id).single();
-      if (error) {
-        console.error('Error fetching organization:', error);
-      } else {
-        setOrganization(data as Organization);
+      try {
+        const { data, error } = await supabase
+          .from('organizations')
+          .select('*')
+          .eq('id', id)
+          .single(); // Добавляем .single() для получения одной организации
+
+        if (error) {
+          throw error;
+        }
+
+        if (data) {
+          setOrganization(data as Organization);
+        } else {
+          throw new Error('Organization data not found.');
+        }
+      } catch (error: any) {
+        console.error('Error fetching organization:', error.message);
+        setError('Error fetching organization data. Please try again.');
       }
     };
 
     fetchOrganization();
   }, [id]);
 
+  if (error) {
+    return <div>{error}</div>;
+  }
+
   if (!organization) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div className="organization-detail-page">
+    <div>
       <h1>{organization.name}</h1>
       <p>{organization.description}</p>
-      {/* Добавьте здесь дополнительную информацию и функциональность */}
     </div>
   );
 };

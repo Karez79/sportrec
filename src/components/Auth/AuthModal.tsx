@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import Modal from 'react-modal';
-import { supabase } from '../supabaseClient';
+import React, { useState, useEffect, useCallback } from 'react';
+import { supabase } from '../../components/supabaseClient';
 import './AuthModal.css';
 
-Modal.setAppElement('#root');
+interface AuthModalProps {
+  isOpen: boolean;
+  onRequestClose: () => void;
+}
 
-const AuthModal: React.FC<{ isOpen: boolean; onRequestClose: () => void }> = ({ isOpen, onRequestClose }) => {
+const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onRequestClose }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
@@ -29,6 +31,7 @@ const AuthModal: React.FC<{ isOpen: boolean; onRequestClose: () => void }> = ({ 
       } else {
         const user = response.data.user;
         console.log('User authenticated:', user);
+        localStorage.setItem('user', JSON.stringify(user));
         setError('');
         onRequestClose();
       }
@@ -38,31 +41,66 @@ const AuthModal: React.FC<{ isOpen: boolean; onRequestClose: () => void }> = ({ 
     }
   };
 
+  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      onRequestClose();
+    }
+  };
+
+  const handleEscapePress = useCallback((e: KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      onRequestClose();
+    }
+  }, [onRequestClose]);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscapePress);
+    } else {
+      document.removeEventListener('keydown', handleEscapePress);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscapePress);
+    };
+  }, [isOpen, handleEscapePress]);
+
+  if (!isOpen) {
+    return null;
+  }
+
   return (
-    <Modal isOpen={isOpen} onRequestClose={onRequestClose} contentLabel="Auth Modal" className="auth-modal">
-      <h2>{isSignUp ? 'Sign Up' : 'Sign In'}</h2>
-      <form onSubmit={handleAuth}>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-          required
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-          required
-        />
-        <button type="submit">{isSignUp ? 'Sign Up' : 'Sign In'}</button>
-      </form>
-      {error && <p className="error">{error}</p>}
-      <button onClick={() => setIsSignUp(!isSignUp)}>
-        {isSignUp ? 'Already have an account? Sign In' : "Don't have an account? Sign Up"}
-      </button>
-    </Modal>
+    <div className="modal-overlay" onClick={handleOverlayClick}>
+      <div className="modal">
+        <div className="modal__content">
+          <button className="modal__close" onClick={onRequestClose}>×</button>
+          <h2 className="modal__title">{isSignUp ? 'Sign Up' : 'Sign In'}</h2>
+          <form className="modal__form" onSubmit={handleAuth}>
+            <input
+              type="email"
+              className="modal__input"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <input
+              type="password"
+              className="modal__input"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <button className="modal__button" type="submit">{isSignUp ? 'Sign Up' : 'Sign In'}</button>
+          </form>
+          {error && <p className="error">{error}</p>}
+          <button className="modal__button" onClick={() => setIsSignUp(!isSignUp)}>
+            {isSignUp ? 'Already have an account? Sign In' : 'Don\'t have an account? Sign Up'}
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };
 

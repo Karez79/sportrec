@@ -9,7 +9,6 @@ import OrganizationsPage from './pages/OrganizationsPage/OrganizationsPage';
 import OrganizationDetailPage from './pages/OrganizationDetailPage/OrganizationDetailPage';
 import LivePage from './pages/LivePage/LivePage';
 import UserDashboard from './pages/UserDashboard/UserDashboard';
-import OrganizationDashboard from './pages/OrganizationDashboard/OrganizationDashboard';
 
 function App() {
   return (
@@ -24,8 +23,8 @@ function App() {
           <Route path="/organizations" element={<OrganizationsPage />} />
           <Route path="/organizations/:id" element={<OrganizationDetailPage />} />
           <Route path="/live" element={<LivePage />} />
-          <Route path="/user-dashboard" element={<UserDashboard />} />
-          <Route path="/organization-dashboard" element={<OrganizationDashboard />} />
+          <Route path="/users/:id" element={<UserDashboard />} />
+          <Route path="/dashboard" element={<UserDashboard />} />
         </Routes>
       </div>
     </Router>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { supabase } from '../supabaseClient';
 import AuthModal from '../Auth/AuthModal';
 import './Menu.css';
 import homeIcon from '../../assets/home.svg';
@@ -28,6 +29,7 @@ const Menu: React.FC = () => {
   const [isLanguageMenuOpen, setLanguageMenuOpen] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(languages[0]);
   const [isAuthModalOpen, setAuthModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
@@ -54,66 +56,113 @@ const Menu: React.FC = () => {
     setAuthModalOpen(false);
   };
 
+  const handleProfileClick = async () => {
+    const userString = localStorage.getItem('user');
+    if (!userString) {
+      console.error('User not found in localStorage.');
+      openAuthModal();
+      return;
+    }
+
+    try {
+      const user = JSON.parse(userString);
+      console.log('User from localStorage:', user);
+
+      if (user && user.id) {
+        const { data: userDetails, error: userDetailsError } = await supabase
+          .from('users')
+          .select('id, email, organization_id')
+          .eq('id', user.id)
+          .single();
+
+        if (userDetailsError) {
+          console.error('Error fetching user details:', userDetailsError);
+          return;
+        }
+
+        if (!userDetails) {
+          console.error('User not found in database.');
+          return;
+        }
+
+        console.log('User details from DB:', userDetails);
+
+        const organizationId = userDetails.organization_id;
+        if (organizationId) {
+          console.log(`Organization user with email: ${userDetails.email}`);
+          navigate(`/organizations/${organizationId}`);
+        } else {
+          console.log(`Regular user with email: ${userDetails.email}`);
+          navigate(`/users/${userDetails.id}`);
+        }
+      }
+    } catch (error) {
+      console.error('Unexpected error fetching user details:', error);
+    }
+  };
+
   return (
-    <nav className="menu">
-      <div className="menu__logo">
-        <a href="https://sportrec-lime.vercel.app/">
-          <img src={logo} alt="SportRec Logo" />
-        </a>
-      </div>
-      <div className={`menu__links ${isMobileMenuOpen ? 'menu__links--open' : ''}`}>
-        <button className="menu__close-button" onClick={closeMobileMenu}>
-          <img src={closeIcon} alt="Close Menu" />
-        </button>
-        <Link className="menu__link" to="/" onClick={closeMobileMenu}>
-          <img src={homeIcon} alt="Home" /> Лента
-        </Link>
-        <Link className="menu__link" to="/marketplace" onClick={closeMobileMenu}>
-          <img src={shoppingBagIcon} alt="Marketplace" /> Маркетплейс
-        </Link>
-        <Link className="menu__link" to="/ratings" onClick={closeMobileMenu}>
-          <img src={usersIcon} alt="Ratings" /> Рейтинги
-        </Link>
-        <Link className="menu__link" to="/competitions" onClick={closeMobileMenu}>
-          <img src={trophyIcon} alt="Competitions" /> Соревнования
-        </Link>
-        <Link className="menu__link" to="/organizations" onClick={closeMobileMenu}>
-          <img src={buildingIcon} alt="Organizations" /> Организации
-        </Link>
-        <Link className="menu__link" to="/live" onClick={closeMobileMenu}>
-          <img src={signalIcon} alt="Live" /> Live
-        </Link>
-      </div>
-      <div className="menu__extras-container">
-        <div className={`menu__extras ${isLanguageMenuOpen ? 'menu__language--open' : ''}`}>
-          <div className="menu__extra menu__language" onClick={toggleLanguageMenu}>
-            <img src={selectedLanguage.flag} alt={`Flag ${selectedLanguage.label}`} />
-            <span>{selectedLanguage.label}</span>
-            <img src={arrowDownIcon} alt="Arrow Down" />
-            <div className="menu__language-dropdown">
-              {languages.map((language) => (
-                <a
-                  key={language.code}
-                  className="menu__language-option"
-                  href="#"
-                  onClick={() => selectLanguage(language)}
-                >
-                  <img src={language.flag} alt={`Flag ${language.label}`} />
-                  {language.label}
-                </a>
-              ))}
-            </div>
-          </div>
-          <a className="menu__extra" href="#" onClick={openAuthModal}>
-            <img src={avatarIcon} alt="Avatar" />
+    <>
+      <nav className="menu">
+        <div className="menu__logo">
+          <a href="/">
+            <img src={logo} alt="SportRec Logo" />
           </a>
         </div>
-      </div>
-      <div className="menu__burger" onClick={toggleMobileMenu}>
-        <img src={burgerIcon} alt="Menu" />
-      </div>
+        <div className={`menu__links ${isMobileMenuOpen ? 'menu__links--open' : ''}`}>
+          <button className="menu__close-button" onClick={closeMobileMenu}>
+            <img src={closeIcon} alt="Close Menu" />
+          </button>
+          <a className="menu__link" href="/" onClick={closeMobileMenu}>
+            <img src={homeIcon} alt="Home" /> Лента
+          </a>
+          <a className="menu__link" href="/marketplace" onClick={closeMobileMenu}>
+            <img src={shoppingBagIcon} alt="Marketplace" /> Маркетплейс
+          </a>
+          <a className="menu__link" href="/ratings" onClick={closeMobileMenu}>
+            <img src={usersIcon} alt="Ratings" /> Рейтинги
+          </a>
+          <a className="menu__link" href="/competitions" onClick={closeMobileMenu}>
+            <img src={trophyIcon} alt="Competitions" /> Соревнования
+          </a>
+          <a className="menu__link" href="/organizations" onClick={closeMobileMenu}>
+            <img src={buildingIcon} alt="Organizations" /> Организации
+          </a>
+          <a className="menu__link" href="/live" onClick={closeMobileMenu}>
+            <img src={signalIcon} alt="Live" /> Live
+          </a>
+        </div>
+        <div className="menu__extras-container">
+          <div className={`menu__extras ${isLanguageMenuOpen ? 'menu__language--open' : ''}`}>
+            <div className="menu__extra menu__language" onClick={toggleLanguageMenu}>
+              <img src={selectedLanguage.flag} alt={`Flag ${selectedLanguage.label}`} />
+              <span>{selectedLanguage.label}</span>
+              <img src={arrowDownIcon} alt="Arrow Down" />
+              <div className="menu__language-dropdown">
+                {languages.map((language) => (
+                  <a
+                    key={language.code}
+                    className="menu__language-option"
+                    href="#"
+                    onClick={() => selectLanguage(language)}
+                  >
+                    <img src={language.flag} alt={`Flag ${language.label}`} />
+                    {language.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+            <a className="menu__extra" href="#" onClick={handleProfileClick}>
+              <img src={avatarIcon} alt="Profile" />
+            </a>
+          </div>
+          <button className="menu__burger" onClick={toggleMobileMenu}>
+            <img src={burgerIcon} alt="Burger Icon" />
+          </button>
+        </div>
+      </nav>
       <AuthModal isOpen={isAuthModalOpen} onRequestClose={closeAuthModal} />
-    </nav>
+    </>
   );
 };
 
